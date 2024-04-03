@@ -1,0 +1,36 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Login</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="submited()">
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" />
+        <mat-error *ngIf="form.controls.email.hasError('required')">
+          Required
+        </mat-error>
+        <mat-error *ngIf="form.controls.email.hasError('email')">
+          Email is invalid
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password" />
+        <mat-error *ngIf="form.controls.password.hasError('required')">
+          Required
+        </mat-error>
+      </mat-form-field>
+
+      <app-button
+        [isLoading]="isLoading()"
+        [disabled]="form.invalid"
+        type="submit"
+      >
+        Login
+      </app-button>
+    </form>
+  </mat-card-content>
+</mat-card>

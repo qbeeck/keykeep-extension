@@ -1,0 +1,12 @@
+:host {
+  display: inline-flex;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+
+  &__icon {
+    margin-inline-end: 8px;
+  }
+}

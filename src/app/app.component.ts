@@ -1,17 +1,58 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterOutlet } from '@angular/router';
+import { ButtonComponent } from './components/button/button.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { AuthenticationService } from './authentication';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { APP_PATHS } from './app.paths';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [
+    NgIf,
+    AsyncPipe,
+    RouterOutlet,
+    MatToolbarModule,
+    ReactiveFormsModule,
+    ButtonComponent,
+  ],
   template: `
-    <h1>Welcome to {{title}}!</h1>
+    <mat-toolbar color="primary">
+      <app-button
+        icon="home"
+        color="accent"
+        (clicked)="navigateToApplication()"
+      >
+        Home
+      </app-button>
 
-    <router-outlet />
+      <ng-container *ngIf="auth.isAuthorized | async as isAuthorized">
+        <app-button
+          *ngIf="isAuthorized"
+          icon="logout"
+          color="accent"
+          (clicked)="auth.logout()"
+        >
+          Logout
+        </app-button>
+      </ng-container>
+    </mat-toolbar>
+
+    <main style="width: 300px; height: 300px">
+      <router-outlet />
+    </main>
   `,
-  styles: [],
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'keykeep-extension';
+  protected readonly auth = inject(AuthenticationService);
+  private readonly router = inject(Router);
+
+  protected navigateToApplication(): void {
+    window.open('http://localhost:4200/', '_blank');
+  }
+
+  constructor() {}
 }

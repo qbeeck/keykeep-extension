@@ -1,0 +1,60 @@
+<ng-container [ngSwitch]="behaviorType()">
+  <ng-container *ngSwitchCase="'button'">
+    <button
+      mat-button
+      [color]="color()"
+      (click)="clicked.emit()"
+      [type]="type()"
+      [disabled]="disabled() || isLoading()"
+    >
+      <ng-container *ngIf="isLoading(); then spinner; else content" />
+    </button>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'flat'">
+    <button
+      mat-flat-button
+      [color]="color()"
+      (click)="clicked.emit()"
+      [type]="type()"
+      [disabled]="disabled() || isLoading()"
+    >
+      <ng-container *ngIf="isLoading(); then spinner; else content" />
+    </button>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'raised'">
+    <button
+      mat-raised-button
+      [color]="color()"
+      (click)="clicked.emit()"
+      [type]="type()"
+      [disabled]="disabled() || isLoading()"
+    >
+      <ng-container *ngIf="isLoading(); then spinner; else content" />
+    </button>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'stroked'">
+    <button
+      mat-stroked-button
+      [color]="color()"
+      (click)="clicked.emit()"
+      [type]="type()"
+      [disabled]="disabled() || isLoading()"
+    >
+      <ng-container *ngIf="isLoading(); then spinner; else content" />
+    </button>
+  </ng-container>
+</ng-container>
+
+<ng-template #spinner>
+  <mat-spinner diameter="20"></mat-spinner>
+</ng-template>
+
+<ng-template #content>
+  <span class="content">
+    <mat-icon class="content__icon" *ngIf="icon()">{{ icon() }}</mat-icon>
+    <ng-content />
+  </span>
+</ng-template>
