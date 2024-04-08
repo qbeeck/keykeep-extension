@@ -5045,7 +5045,7 @@ function userLoggedInMessage(message) {
 }
 
 async function getPasswords(message) {
-  const allCredentials = await fetch(`http://localhost:3000/credentials/cred/1`,
+  const allCredentials = await fetch(`http://localhost:3000/credentials/all/1`,
     {
       method: 'GET',
       headers: {Authorization: `Bearer ${jwtToken}`}
